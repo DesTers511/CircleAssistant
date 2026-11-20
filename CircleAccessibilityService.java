@@ -1,0 +1,6 @@
+package com.example.circleoverlay;
+import android.accessibilityservice.AccessibilityService; import android.accessibilityservice.GestureDescription; import android.graphics.Path; import android.os.Handler; import android.os.Looper; import android.view.Display; import android.view.WindowManager; import android.graphics.Point;
+public class CircleAccessibilityService extends AccessibilityService {
+ static CircleAccessibilityService instance; public void onServiceConnected(){super.onServiceConnected();instance=this;} public void onDestroy(){instance=null;super.onDestroy();}
+ public static void drawCircle(float radiusPx,int durationMs){ if(instance==null)return; Display d=((WindowManager)instance.getSystemService(WINDOW_SERVICE)).getDefaultDisplay(); Point p=new Point();d.getSize(p); float cx=p.x/2f, cy=p.y/2f; Path path=new Path(); int n=180; path.moveTo(cx+radiusPx,cy); for(int i=1;i<=n;i++){double a=2*Math.PI*i/n;path.lineTo(cx+(float)Math.cos(a)*radiusPx,cy+(float)Math.sin(a)*radiusPx);} GestureDescription.StrokeDescription stroke=new GestureDescription.StrokeDescription(path,0,durationMs,false); GestureDescription g=new GestureDescription.Builder().addStroke(stroke).build(); instance.dispatchGesture(g,null,null); }
+}

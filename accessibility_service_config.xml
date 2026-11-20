@@ -1,0 +1,7 @@
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+ android:description="Draw a circular gesture when requested by Circle Overlay"
+ android:accessibilityEventTypes="typeAllMask"
+ android:accessibilityFeedbackType="feedbackGeneric"
+ android:notificationTimeout="50"
+ android:canPerformGestures="true"
+ android:canRetrieveWindowContent="false" />
